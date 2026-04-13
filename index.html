@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shantanu Biswas | Portfolio</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- GLOBAL STARFIELD BACKGROUND -->
+  <div id="starfield-canvas"></div>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">SB<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name" id="hero-name">Shantanu Biswas</h1>
+      <h2 class="hero-title" id="hero-title">
+        <span class="typed-text"></span><span class="cursor">|</span>
+      </h2>
+      <p class="hero-desc">Graduate Software Engineer</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a Computer Science graduate from Parul Institute of Engineering and Technology, Vadodara. I work at the intersection of data and engineering, building systems that turn raw information into decisions.</p>
+          <p>With professional experience as a Financial Analyst at AIS Business Solutions and hands-on expertise in data analytics, automation, and AI-driven tools, I transform complex data into actionable insights and efficient solutions.</p>
+          <div class="about-tags">
+            <span>Python</span><span>SQL</span><span>Java</span><span>React</span>
+            <span>FastAPI</span><span>Power BI</span><span>Machine Learning</span>
+          </div>
+        </div>
+        <div class="skills-panel">
+          <h3>Technical Skills</h3>
+          <div class="skill-bars">
+            <div class="skill-item">
+              <div class="skill-label"><span>Python</span><span>90%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>SQL</span><span>85%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Java</span><span>60%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="60"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>React.Js</span><span>80%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Power BI</span><span>75%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Machine Learning</span><span>70%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>FastAPI</span><span>80%</span></div>
+              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">My <span>Projects</span></h2>
+      <div class="projects-grid">
+
+        <div class="project-card" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">AI · Full-Stack</span>
+            <div class="card-links">
+              <a href="https://github.com/phantom-987/Maya" target="_blank">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>Maya — Sentiment Analysis App</h3>
+          <p>Full-stack AI app with React frontend, FastAPI backend, and OpenAI GPT-3.5 integration. Features animated AI assistant ARIA, voice input, and real-time mood visualizations.</p>
+          <div class="card-tech">
+            <span>React</span><span>FastAPI</span><span>OpenAI</span><span>Recharts</span>
+          </div>
+        </div>
+
+        <div class="project-card" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">Data Analytics</span>
+            <div class="card-links">
+              <a href="https://customer-analytics-phantom.streamlit.app" target="_blank">Live ↗</a>
+            </div>
+          </div>
+          <h3>Sales Analytics Dashboard</h3>
+          <p>End-to-end data pipeline processing FMCG customer behaviour data. Interactive Streamlit app + Power BI dashboard surfacing KPIs across customer segments and categories.</p>
+          <div class="card-tech">
+            <span>Python</span><span>SQL</span><span>Streamlit</span><span>Power BI</span>
+          </div>
+        </div>
+
+        <div class="project-card" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">Automation</span>
+          </div>
+          <h3>Data Validation Automation</h3>
+          <p>Reusable Python scripts automating data quality checks — flagging anomalies, missing values, and inconsistencies. N8N workflows reduce manual data handling time significantly.</p>
+          <div class="card-tech">
+            <span>Python</span><span>Pandas</span><span>N8N</span>
+          </div>
+        </div>
+
+        <div class="project-card" data-tilt>
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="card-tag">Testing</span>
+          </div>
+          <h3>Web Login Test Automation</h3>
+          <p>Selenium WebDriver test suite automating web login flows with structured test cases, assertion handling, and reporting for QA workflows.</p>
+          <div class="card-tech">
+            <span>Python</span><span>Selenium</span><span>WebDriver</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>I'm actively looking for fresher / entry-level roles in Software Engineering and Data Analytics. If you have an opportunity or just want to connect — reach out.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <span class="c-icon">✉</span>
+              <a href="mailto:shantanubiswas5555@gmail.com">shantanubiswas5555@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="c-icon">📍</span>
+              <span>Bengaluru, Karnataka</span>
+            </div>
+            <div class="contact-item">
+              <span class="c-icon">📱</span>
+              <span>+91 9109596961</span>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://github.com/phantom-987" target="_blank" class="social-btn">GitHub</a>
+            <a href="#" target="_blank" class="social-btn">LinkedIn</a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-group">
+            <input type="text" id="name" name="from_name" placeholder="Your Name" required />
+            <span class="form-error" id="name-error"></span>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="from_email" placeholder="Your Email" required />
+            <span class="form-error" id="email-error"></span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="subject" name="subject" placeholder="Subject" required />
+            <span class="form-error" id="subject-error"></span>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            <span class="form-error" id="message-error"></span>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            <span id="btn-text">Send Message</span>
+            <span id="btn-spinner" style="display:none">Sending...</span>
+          </button>
+          <div id="form-feedback"></div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built by Shantanu Biswas · 2025</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="assets/js/three-scene.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
