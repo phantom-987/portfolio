@@ -138,7 +138,7 @@ sections.forEach(s => sectionObserver.observe(s));
 // =====================
 // EMAILJS
 // =====================
-emailjs.init('YOUR_PUBLIC_KEY'); // 🔴 Replace
+emailjs.init('iA6oLRlC16jB7mijY'); // 🔴 Replace
 
 const contactForm = document.getElementById('contact-form');
 const submitBtn   = document.getElementById('submit-btn');
@@ -186,8 +186,8 @@ contactForm.addEventListener('submit', function (e) {
   btnSpinner.style.display = 'inline';
   submitBtn.disabled       = true;
 
-  const serviceID  = 'YOUR_SERVICE_ID';   // 🔴 Replace
-  const templateID = 'YOUR_TEMPLATE_ID';  // 🔴 Replace
+  const serviceID  = 'service_3nodu52';   // 🔴 Replace
+  const templateID = 'template_16bcr62';  // 🔴 Replace
 
   emailjs.sendForm(serviceID, templateID, this)
     .then(() => { showFeedback("✅ Message sent! I'll get back to you soon.", 'success'); contactForm.reset(); })
