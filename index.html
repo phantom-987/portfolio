@@ -1,246 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shantanu Biswas | Portfolio</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Shantanu Biswas — Full Stack Developer & Data Analyst based in Bengaluru."/>
+<title>Shantanu Biswas — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/style.css"/>
+<style>
+/* ── PROJECT CAROUSEL ─────────────────────────── */
+.projects-carousel-wrap {
+  margin-top: 3rem;
+  position: relative;
+}
+.projects-carousel {
+  overflow: hidden;
+  position: relative;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-slide {
+  min-width: 100%;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+.project-card-new {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.8rem 2.8rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  transition: border-color 0.3s;
+}
+.project-card-new::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(79,142,247,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+.project-card-new:hover { border-color: rgba(79,142,247,0.35); }
+.project-card-new .project-num {
+  font-family: var(--font-display);
+  font-size: .72rem; font-weight: 700;
+  color: var(--accent); letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.project-card-new h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800; color: var(--white);
+  letter-spacing: -0.5px; line-height: 1.1;
+}
+.project-card-new p {
+  color: var(--muted);
+  font-size: .95rem; line-height: 1.78;
+  max-width: 680px;
+  flex: 1;
+}
+.project-card-new .card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.gh-link {
+  display: inline-flex; align-items: center; gap: .55rem;
+  color: var(--accent2); text-decoration: none;
+  font-size: .85rem; font-weight: 500;
+  border: 1px solid rgba(79,142,247,0.3);
+  padding: .5rem 1.2rem; border-radius: 50px;
+  transition: all .25s;
+}
+.gh-link:hover {
+  background: rgba(79,142,247,0.12);
+  border-color: var(--accent2);
+  transform: translateY(-1px);
+}
+
+/* Carousel nav */
+.carousel-nav {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 1.8rem;
+}
+.carousel-dots {
+  display: flex; gap: .5rem; align-items: center; flex: 1;
+}
+.c-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border);
+  transition: all .3s; cursor: pointer;
+}
+.c-dot.active {
+  width: 22px; border-radius: 3px;
+  background: var(--accent2);
+}
+.carousel-btn {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all .25s;
+  font-size: 1rem;
+}
+.carousel-btn:hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+  background: rgba(79,142,247,0.08);
+  transform: translateX(0) scale(1.05);
+}
+.carousel-btn:disabled {
+  opacity: 0.3; cursor: not-allowed;
+  transform: none;
+}
+.slide-counter {
+  font-family: var(--font-display);
+  font-size: .78rem; color: var(--muted);
+  min-width: 48px; text-align: right;
+  font-weight: 600;
+}
+
+/* ── SKILLS REWORK ─────────────────────────────── */
+.skills-new-grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+.skill-cat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.8rem 1.8rem 1.6rem;
+  transition: border-color .3s, transform .3s;
+}
+.skill-cat-card:hover {
+  border-color: rgba(79,142,247,0.3);
+  transform: translateY(-3px);
+}
+.skill-cat-title {
+  font-family: var(--font-display);
+  font-size: .82rem; font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.skill-cat-title span.icon {
+  font-size: 1rem;
+}
+.skill-chips {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+}
+.skill-chip {
+  background: rgba(79,142,247,0.08);
+  border: 1px solid rgba(79,142,247,0.18);
+  color: var(--text);
+  padding: .38rem .9rem;
+  border-radius: 50px;
+  font-size: .80rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  transition: all .2s;
+}
+.skill-chip:hover {
+  background: rgba(79,142,247,0.18);
+  color: var(--accent2);
+  transform: translateY(-1px);
+}
+.skill-chip.accent {
+  background: rgba(79,142,247,0.14);
+  border-color: rgba(79,142,247,0.35);
+  color: var(--accent2);
+}
+</style>
 </head>
 <body>
 
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-  <div id="starfield-canvas"></div>
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
 
-  <nav class="navbar" id="navbar">
-    <div class="nav-logo">SB<span class="dot">.</span></div>
-    <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  </nav>
+<!-- SCROLL PROGRESS -->
+<div id="scroll-bar"></div>
 
-  <section id="hero">
-    <div class="hero-content">
-      <p class="hero-greeting">Hello, I'm</p>
-      <h1 class="hero-name" id="hero-name">Shantanu Biswas</h1>
-      <h2 class="hero-title" id="hero-title">
-        <span class="typed-text"></span><span class="cursor">|</span>
-      </h2>
-      <p class="hero-desc">Graduate Software Engineer</p>
+<!-- STARFIELD CANVAS -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- ASTRONAUT GUIDE -->
+<div class="astronaut-wrap" id="astronaut">
+  <div class="speech-bubble" id="bubble">Hey there! 👋 I'm Shantanu's guide.</div>
+  <svg class="astronaut-svg" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="90" rx="28" ry="32" fill="#dce8f5"/>
+    <ellipse cx="60" cy="90" rx="28" ry="32" fill="url(#suit-shade)" opacity=".3"/>
+    <circle cx="60" cy="52" r="26" fill="#dce8f5"/>
+    <circle cx="60" cy="52" r="26" fill="url(#helm-shade)" opacity=".2"/>
+    <ellipse cx="60" cy="52" rx="18" ry="16" fill="#0a1a3a"/>
+    <ellipse cx="60" cy="52" rx="18" ry="16" fill="url(#visor-grad)" opacity=".7"/>
+    <ellipse cx="53" cy="45" rx="6" ry="4" fill="rgba(255,255,255,0.15)" transform="rotate(-20 53 45)"/>
+    <ellipse cx="60" cy="65" rx="20" ry="6" fill="#c8d8ea"/>
+    <path d="M32 82 Q18 78 16 90 Q14 100 22 102 Q28 104 34 98" fill="#dce8f5"/>
+    <path d="M88 82 Q102 78 104 90 Q106 100 98 102 Q92 104 86 98" fill="#dce8f5"/>
+    <ellipse cx="19" cy="103" rx="8" ry="6" fill="#c0d0e8"/>
+    <ellipse cx="101" cy="103" rx="8" ry="6" fill="#c0d0e8"/>
+    <path d="M16 90 Q10 82 14 74 Q18 70 20 76" fill="#c8d8ea" stroke="#b0c4de" stroke-width=".5"/>
+    <rect x="48" y="78" width="24" height="18" rx="4" fill="#b8ccdf"/>
+    <rect x="51" y="81" width="8" height="4" rx="1" fill="#7eb3ff" opacity=".8"/>
+    <rect x="61" y="81" width="8" height="4" rx="1" fill="#ff6b6b" opacity=".7"/>
+    <rect x="51" y="87" width="18" height="2" rx="1" fill="#a0b4cc"/>
+    <path d="M42 118 Q38 130 36 138 Q44 140 48 130 L50 118" fill="#dce8f5"/>
+    <path d="M78 118 Q82 130 84 138 Q76 140 72 130 L70 118" fill="#dce8f5"/>
+    <ellipse cx="40" cy="137" rx="9" ry="5" fill="#c0d0e8"/>
+    <ellipse cx="80" cy="137" rx="9" ry="5" fill="#c0d0e8"/>
+    <rect x="72" y="72" width="14" height="20" rx="4" fill="#c8d8ea" opacity=".8"/>
+    <path d="M86 82 Q94 72 92 60" stroke="#a0b8cc" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+    <path d="M44 100 Q60 108 76 100" stroke="#4f8ef7" stroke-width="1.5" fill="none" opacity=".5"/>
+    <path d="M44 94 Q60 102 76 94" stroke="#4f8ef7" stroke-width="1" fill="none" opacity=".3"/>
+    <defs>
+      <radialGradient id="suit-shade" cx="40%" cy="30%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#3a5a80"/></radialGradient>
+      <radialGradient id="helm-shade" cx="40%" cy="30%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#2a4a70"/></radialGradient>
+      <linearGradient id="visor-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a3a6a"/><stop offset="100%" stop-color="#0a1a3a"/></linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">SB<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">
+    Resume
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </a>
+  <button class="hamburger" id="ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════ HERO ══════════════════════════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Available for work</div>
+      <h1 class="hero-greeting" id="hero-name">
+        Hello, I'm<br>
+        <em>Shantanu<br>Biswas</em>
+      </h1>
+      <p class="hero-sub">
+        <span id="typed-text"></span><span class="typed-cursor">|</span>
+      </p>
+      <p class="hero-desc">
+        I build modern, data-driven applications that turn complex problems into clean, intuitive products. From AI-powered tools to analytics dashboards — I ship things that work.
+      </p>
       <div class="hero-btns">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <a href="#projects" class="btn btn-primary">
+          View Work
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-secondary">Contact Me</a>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+    <div class="hero-right">
+      <div class="earth-ring"></div>
+      <div class="earth-ring"></div>
+      <canvas id="earth-canvas" width="480" height="480"></canvas>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">About <span>Me</span></h2>
-      <div class="about-grid">
+<!-- ══════════ ABOUT ═════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="reveal">
+        <div class="sec-label">01. About Me</div>
+        <h2 class="sec-title">Who am <span>I?</span></h2>
         <div class="about-text">
-          <p>I'm a Computer Science graduate from Parul Institute of Engineering and Technology, Vadodara. I work at the intersection of data and engineering, building systems that turn raw information into decisions.</p>
-          <p>With professional experience as a Financial Analyst at AIS Business Solutions and hands-on expertise in data analytics, automation, and AI-driven tools, I transform complex data into actionable insights and efficient solutions.</p>
-          <div class="about-tags">
-            <span>Python</span><span>SQL</span><span>Java</span><span>React</span>
-            <span>FastAPI</span><span>Power BI</span><span>Machine Learning</span>
-          </div>
+          <p>I'm a <strong>CS graduate from Parul Institute of Engineering & Technology</strong> (2025), currently based in Bengaluru. I work at the intersection of data and engineering — building tools that turn raw information into decisions.</p>
+          <p>With experience as a <strong>Financial Data Analyst at AIS Business Solutions</strong> and an AI/ML internship at <strong>Aditya Birla Group</strong>, I bring both analytical rigour and full-stack chops to everything I build.</p>
+          <p>I'm actively looking for <strong>SDE and Data Analyst roles</strong> where I can contribute from day one.</p>
         </div>
-        <div class="skills-panel">
-          <h3>Technical Skills</h3>
-          <div class="skill-bars">
-            <div class="skill-item">
-              <div class="skill-label"><span>Python</span><span>90%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>SQL</span><span>85%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Java</span><span>60%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="60"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>React.Js</span><span>80%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Power BI</span><span>75%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>Machine Learning</span><span>70%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-label"><span>FastAPI</span><span>80%</span></div>
-              <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        <!-- Stats: removed CGPA and Industry internships -->
+        <div class="about-stats" style="grid-template-columns: 1fr 1fr;">
+          <div class="stat-card reveal reveal-delay-1"><div class="stat-num">96%</div><div class="stat-label">Quality score @ AIS Business Solutions</div></div>
+          <div class="stat-card reveal reveal-delay-2"><div class="stat-num">4+</div><div class="stat-label">Production projects shipped</div></div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="about-card">
+          <div class="sec-label" style="margin-bottom:.8rem">Experience</div>
+          <div class="exp-row">
+            <div class="exp-icon">💼</div>
+            <div><div class="exp-title">Financial Data Analyst</div><div class="exp-sub">AIS Business Solutions · 2024–Present</div></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-icon">🤖</div>
+            <div><div class="exp-title">AI/ML Intern</div><div class="exp-sub">Aditya Birla Group · Jan–Mar 2025</div></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-icon">🎓</div>
+            <div><div class="exp-title">B.Tech Computer Science</div><div class="exp-sub">Parul Institute · 2021–2025</div></div>
+          </div>
+          <div style="margin-top:1.4rem">
+            <div class="sec-label" style="margin-bottom:.8rem">Tech Stack</div>
+            <div class="skills-list">
+              <span class="skill-tag">Python</span><span class="skill-tag">React</span>
+              <span class="skill-tag">FastAPI</span><span class="skill-tag">SQL</span>
+              <span class="skill-tag">Power BI</span><span class="skill-tag">Streamlit</span>
+              <span class="skill-tag">Selenium</span><span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Git</span>
             </div>
           </div>
         </div>
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="projects">
-    <div class="container">
-      <h2 class="section-title">My <span>Projects</span></h2>
-      <div class="projects-grid">
+<!-- ══════════ PROJECTS ══════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">02. Projects</div>
+      <h2 class="sec-title">Things I've <span>Built</span></h2>
+    </div>
 
-        <div class="project-card" data-tilt>
-          <div class="card-glow"></div>
-          <div class="card-header">
-            <span class="card-tag">AI · Full-Stack</span>
-            <div class="card-links">
-              <a href="https://github.com/phantom-987/Maya" target="_blank">GitHub ↗</a>
+    <div class="projects-carousel-wrap reveal reveal-delay-1">
+      <div class="projects-carousel">
+        <div class="carousel-track" id="carousel-track">
+
+          <!-- Slide 1 -->
+          <div class="project-slide">
+            <div class="project-card-new">
+              <div class="project-num">01 — Featured</div>
+              <h3>Maya — AI Sentiment Analysis</h3>
+              <p>Full-stack AI app with an animated assistant (ARIA), voice input, real-time mood visualisations, and empathetic response generation. Built with a FastAPI backend deployed on Render and a React frontend on Vercel, leveraging the Claude API for intelligent emotional understanding.</p>
+              <div class="card-footer">
+                <a href="https://github.com/phantom-987/Maya" target="_blank" class="gh-link">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View on GitHub
+                </a>
+              </div>
             </div>
           </div>
-          <h3>Maya — Sentiment Analysis App</h3>
-          <p>Full-stack AI app with React frontend, FastAPI backend, and OpenAI GPT-3.5 integration. Features animated AI assistant ARIA, voice input, and real-time mood visualizations.</p>
-          <div class="card-tech">
-            <span>React</span><span>FastAPI</span><span>OpenAI</span><span>Recharts</span>
-          </div>
-        </div>
 
-        <div class="project-card" data-tilt>
-          <div class="card-glow"></div>
-          <div class="card-header">
-            <span class="card-tag">Data Analytics</span>
-            <div class="card-links">
-              <a href="https://customer-analytics-phantom.streamlit.app" target="_blank">Live ↗</a>
+          <!-- Slide 2 -->
+          <div class="project-slide">
+            <div class="project-card-new">
+              <div class="project-num">02</div>
+              <h3>Sales Analytics Dashboard</h3>
+              <p>End-to-end FMCG customer behaviour pipeline with a fully interactive Streamlit app and a Power BI dashboard surfacing key KPIs across customer segments. Designed to surface actionable business insights from raw transactional data, featuring drill-down filters and cohort analysis.</p>
+              <div class="card-footer">
+                <a href="https://github.com/phantom-987" target="_blank" class="gh-link">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View on GitHub
+                </a>
+              </div>
             </div>
           </div>
-          <h3>Sales Analytics Dashboard</h3>
-          <p>End-to-end data pipeline processing FMCG customer behaviour data. Interactive Streamlit app + Power BI dashboard surfacing KPIs across customer segments and categories.</p>
-          <div class="card-tech">
-            <span>Python</span><span>SQL</span><span>Streamlit</span><span>Power BI</span>
-          </div>
-        </div>
 
-        <div class="project-card" data-tilt>
-          <div class="card-glow"></div>
-          <div class="card-header">
-            <span class="card-tag">Automation</span>
+          <!-- Slide 3 -->
+          <div class="project-slide">
+            <div class="project-card-new">
+              <div class="project-num">03</div>
+              <h3>Data Validation Automation</h3>
+              <p>Reusable Python scripts automating data quality checks across financial datasets — anomaly detection, missing value handling, and inconsistency flagging. Integrated with N8N workflows that reduced manual data handling time significantly, enabling the team to focus on higher-value analysis.</p>
+              <div class="card-footer">
+                <a href="https://github.com/phantom-987" target="_blank" class="gh-link">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View on GitHub
+                </a>
+              </div>
+            </div>
           </div>
-          <h3>Data Validation Automation</h3>
-          <p>Reusable Python scripts automating data quality checks — flagging anomalies, missing values, and inconsistencies. N8N workflows reduce manual data handling time significantly.</p>
-          <div class="card-tech">
-            <span>Python</span><span>Pandas</span><span>N8N</span>
-          </div>
-        </div>
 
-        <div class="project-card" data-tilt>
-          <div class="card-glow"></div>
-          <div class="card-header">
-            <span class="card-tag">Testing</span>
+          <!-- Slide 4 -->
+          <div class="project-slide">
+            <div class="project-card-new">
+              <div class="project-num">04</div>
+              <h3>Web Login Test Automation</h3>
+              <p>Selenium WebDriver test suite for automated login flow validation across multiple browsers. Structured test cases with assertion handling, screenshot capture on failure, and a clean QA reporting system. Built to be reusable across different web applications with minimal configuration changes.</p>
+              <div class="card-footer">
+                <a href="https://github.com/phantom-987" target="_blank" class="gh-link">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View on GitHub
+                </a>
+              </div>
+            </div>
           </div>
-          <h3>Web Login Test Automation</h3>
-          <p>Selenium WebDriver test suite automating web login flows with structured test cases, assertion handling, and reporting for QA workflows.</p>
-          <div class="card-tech">
-            <span>Python</span><span>Selenium</span><span>WebDriver</span>
-          </div>
-        </div>
 
+        </div><!-- /carousel-track -->
+      </div><!-- /projects-carousel -->
+
+      <!-- Navigation row -->
+      <div class="carousel-nav">
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <span class="slide-counter" id="slide-counter">1 / 4</span>
+        <button class="carousel-btn" id="btn-prev" aria-label="Previous project">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn" id="btn-next" aria-label="Next project">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
+    </div><!-- /wrap -->
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ════════════════════════ -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">03. Skills</div>
+      <h2 class="sec-title">Technical <span>Abilities</span></h2>
     </div>
-  </section>
 
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">Get In <span>Touch</span></h2>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <p>I'm actively looking for fresher / entry-level roles in Software Engineering and Data Analytics. If you have an opportunity or just want to connect — reach out.</p>
-          <div class="contact-items">
-            <div class="contact-item">
-              <span class="c-icon">✉</span>
-              <a href="mailto:shantanubiswas5555@gmail.com">shantanubiswas5555@gmail.com</a>
-            </div>
-            <div class="contact-item">
-              <span class="c-icon">📍</span>
-              <span>Bengaluru, Karnataka</span>
-            </div>
-            <div class="contact-item">
-              <span class="c-icon">📱</span>
-              <span>+91 9109596961</span>
-            </div>
-          </div>
-          <div class="social-links">
-            <a href="https://github.com/phantom-987" target="_blank" class="social-btn">GitHub</a>
-            <a href="#" target="_blank" class="social-btn">LinkedIn</a>
-          </div>
+    <div class="skills-new-grid">
+
+      <!-- Data Manipulation & Querying -->
+      <div class="skill-cat-card reveal reveal-delay-1">
+        <div class="skill-cat-title"><span class="icon">🗄️</span> Data Manipulation &amp; Querying</div>
+        <div class="skill-chips">
+          <span class="skill-chip accent">SQL</span>
+          <span class="skill-chip">MySQL</span>
+          <span class="skill-chip">PostgreSQL</span>
+          <span class="skill-chip">Pandas</span>
+          <span class="skill-chip">NumPy</span>
+          <span class="skill-chip">Data Wrangling</span>
+          <span class="skill-chip">ETL Pipelines</span>
         </div>
+      </div>
 
-        <form class="contact-form" id="contact-form" novalidate>
-          <div class="form-group">
-            <input type="text" id="name" name="name" placeholder="Your Name" required />
-            <span class="form-error" id="name-error"></span>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Your Email" required />
-            <span class="form-error" id="email-error"></span>
-          </div>
-          <div class="form-group">
-            <input type="text" id="subject" name="subject" placeholder="Subject" required />
-            <span class="form-error" id="subject-error"></span>
-          </div>
-          <div class="form-group">
-            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-            <span class="form-error" id="message-error"></span>
-          </div>
-          <button type="submit" class="btn btn-primary" id="submit-btn">
+      <!-- Programming Languages -->
+      <div class="skill-cat-card reveal reveal-delay-2">
+        <div class="skill-cat-title"><span class="icon">🐍</span> Programming Languages</div>
+        <div class="skill-chips">
+          <span class="skill-chip accent">Python</span>
+          <span class="skill-chip">Pandas</span>
+          <span class="skill-chip">NumPy</span>
+          <span class="skill-chip">Scikit-learn</span>
+          <span class="skill-chip">FastAPI</span>
+          <span class="skill-chip">React</span>
+          <span class="skill-chip">JavaScript</span>
+        </div>
+      </div>
+
+      <!-- Data Visualization -->
+      <div class="skill-cat-card reveal reveal-delay-3">
+        <div class="skill-cat-title"><span class="icon">📊</span> Data Visualization</div>
+        <div class="skill-chips">
+          <span class="skill-chip accent">Power BI</span>
+          <span class="skill-chip accent">Tableau</span>
+          <span class="skill-chip">Streamlit</span>
+          <span class="skill-chip">Recharts</span>
+          <span class="skill-chip">Matplotlib</span>
+          <span class="skill-chip">Seaborn</span>
+        </div>
+      </div>
+
+      <!-- Data Cleaning / Wrangling -->
+      <div class="skill-cat-card reveal reveal-delay-4">
+        <div class="skill-cat-title"><span class="icon">🧹</span> Data Cleaning &amp; Wrangling</div>
+        <div class="skill-chips">
+          <span class="skill-chip accent">Unstructured Data</span>
+          <span class="skill-chip">Missing Value Handling</span>
+          <span class="skill-chip">Anomaly Detection</span>
+          <span class="skill-chip">Data Validation</span>
+          <span class="skill-chip">N8N Workflows</span>
+          <span class="skill-chip">Automation Scripts</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ═══════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal">
+        <div class="sec-label">04. Contact</div>
+        <h2 class="sec-title">Let's <span>Connect</span></h2>
+        <p class="contact-desc">I'm actively looking for fresher and entry-level roles in Software Engineering and Data Analytics. If you have an opportunity, a collaboration idea, or just want to say hi — reach out.</p>
+        <div class="contact-links">
+          <a href="mailto:shantanubiswas5555@gmail.com" class="c-link"><div class="c-icon">✉</div>shantanubiswas5555@gmail.com</a>
+          <a href="https://github.com/phantom-987" target="_blank" class="c-link">
+            <div class="c-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></div>
+            github.com/phantom-987
+          </a>
+          <a href="#" class="c-link"><div class="c-icon">💼</div>LinkedIn — Shantanu Biswas</a>
+          <a href="#" class="c-link"><div class="c-icon">📍</div>Bengaluru, Karnataka, India</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <form class="contact-form" id="contact-form">
+          <div class="form-group"><label>Name</label><input type="text" name="from_name" placeholder="Your name" required/></div>
+          <div class="form-group"><label>Email</label><input type="email" name="from_email" placeholder="your@email.com" required/></div>
+          <div class="form-group"><label>Subject</label><input type="text" name="subject" placeholder="What's this about?"/></div>
+          <div class="form-group"><label>Message</label><textarea rows="5" name="message" placeholder="Tell me about the opportunity..." required></textarea></div>
+          <button type="submit" class="btn btn-primary form-submit" id="submit-btn">
             <span id="btn-text">Send Message</span>
-            <span id="btn-spinner" style="display:none">Sending...</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
-          <div id="form-feedback"></div>
         </form>
-
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>Built by Shantanu Biswas · 2025</p>
-  </footer>
+<footer>
+  <p>Built with ☕ by Shantanu Biswas · 2025 · Bengaluru, India</p>
+</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="assets/js/three-scene.js"></script>
-  <script src="assets/js/animations.js"></script>
-  <script src="assets/js/interactions.js"></script>
-  <script src="assets/js/main.js"></script>
+<!-- SCRIPTS -->
+<script src="assets/js/three-scene.js"></script>
+<script src="assets/js/animations.js"></script>
+<script src="assets/js/interactions.js"></script>
+<script src="assets/js/main.js"></script>
+
+<!-- CAROUSEL LOGIC -->
+<script>
+(function() {
+  const track = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carousel-dots');
+  const counter = document.getElementById('slide-counter');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.project-slide');
+  const total = slides.length;
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'c-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsWrap.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${total}`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === total - 1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  // Touch/swipe support
+  let startX = 0;
+  track.parentElement.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.parentElement.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    const projectsSection = document.getElementById('projects');
+    const rect = projectsSection.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!inView) return;
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+  });
+
+  goTo(0);
+})();
+</script>
 
 </body>
 </html>

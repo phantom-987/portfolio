@@ -1,196 +1,171 @@
-// =====================
-// THEME TOGGLE
-// =====================
-const themeToggle = document.getElementById('theme-toggle');
-const body        = document.body;
+/**
+ * main.js — Navbar, typed text, scroll progress, astronaut guide, contact form
+ */
+(function () {
+  'use strict';
 
-if (localStorage.getItem('theme') === 'light') {
-  body.classList.add('light-mode');
-}
+  // ── SCROLL PROGRESS BAR ──────────────────────
+  const scrollBar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    if (scrollBar) scrollBar.style.width = (window.scrollY / total * 100) + '%';
+  });
 
-themeToggle.addEventListener('click', () => {
-  body.classList.toggle('light-mode');
-  localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
-});
+  // ── NAVBAR ───────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-// =====================
-// SCROLL PROGRESS BAR
-// =====================
-const progressBar = document.createElement('div');
-progressBar.id = 'scroll-progress';
-document.body.prepend(progressBar);
-
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const total    = document.body.scrollHeight - window.innerHeight;
-  progressBar.style.width = (scrolled / total * 100) + '%';
-});
-
-// =====================
-// CUSTOM CURSOR
-// =====================
-const cursorDot  = document.getElementById('cursor-dot');
-const cursorRing = document.getElementById('cursor-ring');
-
-let cx = 0, cy = 0, rx = 0, ry = 0;
-
-document.addEventListener('mousemove', (e) => {
-  cx = e.clientX; cy = e.clientY;
-  cursorDot.style.left = cx + 'px';
-  cursorDot.style.top  = cy + 'px';
-});
-
-// Smooth ring follow
-function animateCursor() {
-  rx += (cx - rx) * 0.12;
-  ry += (cy - ry) * 0.12;
-  cursorRing.style.left = rx + 'px';
-  cursorRing.style.top  = ry + 'px';
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-// Hover effects
-document.querySelectorAll('a, button, .project-card, .social-btn, .about-tags span').forEach(el => {
-  el.addEventListener('mouseenter', () => body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => body.classList.remove('cursor-hover'));
-});
-
-// =====================
-// NAVBAR SCROLL
-// =====================
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// =====================
-// MOBILE NAV
-// =====================
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.querySelector('.nav-links');
-hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
-});
-
-// =====================
-// TYPED TEXT
-// =====================
-const phrases = [
-  "In God we trust. All others must bring data.",
-  "Without data, you're just another person with an opinion.",
-  "Automate what is repetitive. Analyze what is valuable.",
-  "Data is the new oil, but insight is the combustion engine.",
-  "Garbage in, garbage out — data quality is everything.",
-  "Code is logic. Data is truth.",
-  "Measure what matters. Ignore what doesn't.",
-  "The goal is not data, but decisions.",
-  "AI is only as smart as the data you feed it.",
-  "First solve the problem, then optimize the pipeline.",
-  "Data tells stories. Analysts give them meaning.",
-  "If you can't measure it, you can't improve it.",
-  "Behind every dashboard is a messy dataset.",
-  "Prediction is hard — especially about the future.",
-  "Small data errors lead to big business mistakes."
-];
-
-let phraseIndex = 0, charIndex = 0, isDeleting = false;
-const typedEl = document.querySelector('.typed-text');
-
-function type() {
-  const current = phrases[phraseIndex];
-  typedEl.textContent = isDeleting
-    ? current.substring(0, charIndex--)
-    : current.substring(0, charIndex++);
-
-  let delay = isDeleting ? 40 : 75;
-  if (!isDeleting && charIndex === current.length + 1) {
-    delay = 2000; isDeleting = true;
-  } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    phraseIndex = (phraseIndex + 1) % phrases.length;
-    delay = 400;
+  const ham = document.getElementById('ham');
+  const navLinks = document.querySelector('.nav-links');
+  if (ham && navLinks) {
+    ham.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      ham.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        ham.classList.remove('open');
+      });
+    });
   }
-  setTimeout(type, delay);
-}
-type();
 
-// =====================
-// CINEMATIC SCROLL
-// =====================
-const sections = document.querySelectorAll('section:not(#hero)');
-
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-      entry.target.classList.remove('out-of-view');
-    } else {
-      entry.target.classList.remove('in-view');
-      entry.target.classList.add('out-of-view');
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-sections.forEach(s => sectionObserver.observe(s));
-
-// =====================
-// EMAILJS
-// =====================
-emailjs.init('iA6oLRlC16jB7mijY'); // 🔴 Replace
-
-const contactForm = document.getElementById('contact-form');
-const submitBtn   = document.getElementById('submit-btn');
-const btnText     = document.getElementById('btn-text');
-const btnSpinner  = document.getElementById('btn-spinner');
-const feedback    = document.getElementById('form-feedback');
-
-function showFeedback(msg, type) {
-  feedback.innerHTML = `<div class="feedback-${type}">${msg}</div>`;
-  setTimeout(() => { feedback.innerHTML = ''; }, 6000);
-}
-
-function validateForm() {
-  let valid = true;
-  const fields = [
-    { id: 'name',    msg: 'Please enter your name.' },
-    { id: 'email',   msg: 'Please enter a valid email.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
-    { id: 'subject', msg: 'Please enter a subject.' },
-    { id: 'message', msg: 'Please enter your message.' }
+  // ── TYPED TEXT ───────────────────────────────
+  const phrases = [
+    'In God we trust. All others must bring data.',
+    'Without data, you\'re just another person with an opinion.',
+    'Data is the new oil — insight is the combustion engine.',
+    'Garbage in, garbage out. Data quality is everything.',
+    'Measure what matters. Ignore what doesn\'t.',
+    'The goal is not data, but decisions.',
+    'Behind every dashboard is a messy dataset.',
+    'Data tells stories. Analysts give them meaning.',
+    'If you can\'t measure it, you can\'t improve it.',
+    'Small data errors lead to big business mistakes.',
   ];
-  fields.forEach(f => {
-    const el  = document.getElementById(f.id);
-    const err = document.getElementById(f.id + '-error');
-    const val = el.value.trim();
-    if (!val || (f.pattern && !f.pattern.test(val))) {
-      err.textContent = f.msg; el.classList.add('input-error'); valid = false;
-    } else {
-      err.textContent = ''; el.classList.remove('input-error');
+  let phraseIdx = 0, charIdx = 0, deleting = false;
+  const typedEl = document.getElementById('typed-text');
+  function type() {
+    if (!typedEl) return;
+    const cur = phrases[phraseIdx];
+    typedEl.textContent = deleting ? cur.substring(0, charIdx--) : cur.substring(0, charIdx++);
+    let delay = deleting ? 45 : 85;
+    if (!deleting && charIdx === cur.length + 1) { delay = 2200; deleting = true; }
+    else if (deleting && charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; delay = 450; }
+    setTimeout(type, delay);
+  }
+  type();
+
+  // ── ASTRONAUT GUIDE ──────────────────────────
+  const astro = document.getElementById('astronaut');
+  const bubble = document.getElementById('bubble');
+
+  if (astro && bubble) {
+    const sectionData = [
+      { id: 'hero',     msg: "Hey there! 👋 I'm Shantanu's guide!",           pos: () => ({ left: window.innerWidth - 145, top: window.innerHeight * 0.55 }) },
+      { id: 'about',    msg: "💼 Data analyst & full-stack builder!",           pos: () => ({ left: window.innerWidth - 145, top: window.innerHeight * 0.45 }) },
+      { id: 'projects', msg: "🚀 Swipe through his projects →",                pos: () => ({ left: 40, top: window.innerHeight * 0.60 }) },
+      { id: 'skills',   msg: "⚡ Python, SQL, Power BI & more!",               pos: () => ({ left: window.innerWidth - 145, top: window.innerHeight * 0.50 }) },
+      { id: 'contact',  msg: "📬 He's open to opportunities!",                 pos: () => ({ left: window.innerWidth / 2 - 44, top: window.innerHeight * 0.75 }) },
+    ];
+
+    let currentIdx = 0;
+    let bubbleTimer = null;
+
+    // Place without transition on load
+    astro.style.transition = 'none';
+    const init = sectionData[0].pos();
+    astro.style.left = init.left + 'px';
+    astro.style.top  = init.top  + 'px';
+    astro.style.opacity = '1';
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      astro.style.transition = 'left 1.1s cubic-bezier(.4,0,.2,1), top 1.1s cubic-bezier(.4,0,.2,1), opacity 0.5s';
+    }));
+
+    function showBubble(msg) {
+      clearTimeout(bubbleTimer);
+      bubble.textContent = msg;
+      bubble.classList.add('show');
+      bubbleTimer = setTimeout(() => bubble.classList.remove('show'), 3800);
     }
-  });
-  return valid;
-}
 
-['name', 'email', 'subject', 'message'].forEach(id => {
-  document.getElementById(id).addEventListener('input', function () {
-    document.getElementById(id + '-error').textContent = '';
-    this.classList.remove('input-error');
-  });
-});
+    function moveTo(idx) {
+      const sd = sectionData[idx];
+      const p = sd.pos();
+      astro.style.left = p.left + 'px';
+      astro.style.top  = p.top  + 'px';
+      showBubble(sd.msg);
+    }
 
-contactForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  if (!validateForm()) return;
-  btnText.style.display    = 'none';
-  btnSpinner.style.display = 'inline';
-  submitBtn.disabled       = true;
+    setTimeout(() => showBubble(sectionData[0].msg), 1400);
 
-  const serviceID  = 'service_3nodu52';   // 🔴 Replace
-  const templateID = 'template_16bcr62';  // 🔴 Replace
+    function getActiveSection() {
+      let best = 0, bestRatio = 0;
+      sectionData.forEach((sd, i) => {
+        const el = document.getElementById(sd.id);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        const ratio = vis / window.innerHeight;
+        if (ratio > bestRatio) { bestRatio = ratio; best = i; }
+      });
+      return best;
+    }
 
-  emailjs.sendForm(serviceID, templateID, this)
-    .then(() => { showFeedback("✅ Message sent! I'll get back to you soon.", 'success'); contactForm.reset(); })
-    .catch(err => { console.error(err); showFeedback('❌ Something went wrong. Please email me directly at shantanubiswas5555@gmail.com', 'error'); })
-    .finally(() => { btnText.style.display = 'inline'; btnSpinner.style.display = 'none'; submitBtn.disabled = false; });
-});
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const idx = getActiveSection();
+        if (idx !== currentIdx) { currentIdx = idx; moveTo(currentIdx); }
+        ticking = false;
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const p = sectionData[currentIdx].pos();
+      astro.style.left = p.left + 'px';
+      astro.style.top  = p.top  + 'px';
+    });
+  }
+
+  // ── CONTACT FORM ─────────────────────────────
+  const contactForm = document.getElementById('contact-form');
+  const submitBtn   = document.getElementById('submit-btn');
+  const btnText     = document.getElementById('btn-text');
+
+  if (contactForm) {
+    if (typeof emailjs !== 'undefined') emailjs.init('iA6oLRlC16jB7mijY');
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'Sending…';
+
+      if (typeof emailjs !== 'undefined') {
+        emailjs.sendForm('service_3nodu52', 'template_16bcr62', this)
+          .then(() => {
+            if (btnText) btnText.textContent = '✓ Sent!';
+            contactForm.reset();
+            setTimeout(() => { if (btnText) btnText.textContent = 'Send Message'; if (submitBtn) submitBtn.disabled = false; }, 3000);
+          })
+          .catch(err => {
+            console.error(err);
+            if (btnText) btnText.textContent = 'Send Message';
+            if (submitBtn) submitBtn.disabled = false;
+            alert('Something went wrong. Email: shantanubiswas5555@gmail.com');
+          });
+      } else {
+        setTimeout(() => {
+          if (btnText) btnText.textContent = 'Send Message';
+          if (submitBtn) submitBtn.disabled = false;
+        }, 1000);
+      }
+    });
+  }
+
+})();
